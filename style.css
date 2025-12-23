@@ -1,0 +1,209 @@
+/* RESET Y FONDO PREMIUM */
+:root {
+    --bg-deep: #020f05;
+    --bg-green: #0a351c;
+    --gold: #ffd700;
+    --gold-dark: #b8860b;
+    --gold-light: #fffec4;
+    --red: #8b0000;
+    --red-bright: #d92020;
+    --red-dark: #500000;
+}
+
+body, html {
+    margin: 0; padding: 0; height: 100%; overflow: hidden;
+    font-family: 'Cinzel', serif;
+    background: radial-gradient(circle at 50% 40%, var(--bg-green) 0%, var(--bg-deep) 90%);
+    display: flex; justify-content: center; align-items: center;
+    color: white;
+}
+
+/* ------------------ NIEVE 3D MEJORADA ------------------ */
+.snow-container { position: absolute; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
+
+.snow {
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    animation: snowfall linear infinite;
+    z-index: 1;
+}
+
+/* Capa 1: Fondo (Pequeños y lentos) */
+.snow:nth-child(1) {
+    background-image: 
+        radial-gradient(3px 3px at 10% 10%, white, transparent),
+        radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,0.8), transparent),
+        radial-gradient(3px 3px at 40% 70%, white, transparent),
+        radial-gradient(2px 2px at 60% 40%, rgba(255,255,255,0.8), transparent),
+        radial-gradient(3px 3px at 80% 20%, white, transparent),
+        radial-gradient(2px 2px at 90% 80%, rgba(255,255,255,0.8), transparent);
+    background-size: 60vw 60vh;
+    animation-duration: 25s;
+    opacity: 0.6;
+}
+
+/* Capa 2: Medio (Medianos) */
+.snow.delayed {
+    background-image: 
+        radial-gradient(5px 5px at 15% 15%, white, transparent),
+        radial-gradient(4px 4px at 35% 55%, rgba(255,255,255,0.9), transparent),
+        radial-gradient(5px 5px at 75% 85%, white, transparent),
+        radial-gradient(4px 4px at 85% 25%, rgba(255,255,255,0.9), transparent);
+    background-size: 50vw 50vh;
+    animation-duration: 15s;
+    opacity: 0.8;
+}
+
+/* Capa 3: Primer Plano (Gigantes, rápidos y borrosos) */
+.snow.foreground {
+    background-image: 
+        radial-gradient(10px 10px at 20% 20%, rgba(255,255,255,1), transparent),
+        radial-gradient(12px 12px at 80% 60%, rgba(255,255,255,1), transparent);
+    background-size: 40vw 40vh;
+    animation-duration: 8s;
+    opacity: 1;
+    filter: blur(2px);
+    z-index: 20; /* Por encima de todo incluso */
+}
+
+@keyframes snowfall { from { background-position: 0 0; } to { background-position: 20vw 100vh; } }
+
+
+/* ESCENAS */
+.scene {
+    position: absolute; width: 100%; height: 100%;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    transition: all 1s ease; z-index: 10;
+}
+.hidden { opacity: 0; pointer-events: none; transform: scale(1.1); z-index: 0; }
+
+/* ------------------ REGALO PREMIUM RESPONSIVE ------------------ */
+/* Usamos 'vmin' para que escale proporcionalmente a lo menor (ancho o alto) */
+.gift-container {
+    position: relative; cursor: pointer;
+    width: 30vmin; height: 30vmin; 
+    min-width: 200px; min-height: 200px; /* Límites razonables */
+    display: flex; justify-content: center; align-items: center;
+    animation: float 5s ease-in-out infinite;
+    perspective: 1000px;
+}
+.gift-container:hover { transform: scale(1.05); }
+
+/* La caja y tapa se basan en % del contenedor para ser 100% responsivos */
+.box {
+    position: relative; width: 90%; height: 80%; margin-top: 15%;
+    background: linear-gradient(135deg, var(--red-bright), var(--red));
+    box-shadow: inset 0 0 3vmin rgba(0,0,0,0.5), 0 4vmin 6vmin rgba(0,0,0,0.8);
+    border-radius: 1vmin;
+}
+
+.lid {
+    position: absolute; top: -12%; left: -5%; width: 110%; height: 25%;
+    background: linear-gradient(to bottom, var(--red-bright), var(--red));
+    border-radius: 1vmin; 
+    box-shadow: inset 0 0.5vmin 1vmin rgba(255,255,255,0.2), 0 1vmin 2vmin rgba(0,0,0,0.4); 
+    z-index: 2;
+}
+
+.ribbon-v, .ribbon-h {
+    background: linear-gradient(90deg, var(--gold-dark), var(--gold) 40%, var(--gold-light) 50%, var(--gold) 60%, var(--gold-dark));
+    box-shadow: 0 0 0.5vmin rgba(0,0,0,0.3);
+}
+.ribbon-v {
+    position: absolute; left: 50%; transform: translateX(-50%); width: 18%; height: 100%;
+}
+.ribbon-h {
+    position: absolute; top: 50%; transform: translateY(-50%); width: 100%; height: 18%;
+    background: linear-gradient(180deg, var(--gold-dark), var(--gold) 40%, var(--gold-light) 50%, var(--gold) 60%, var(--gold-dark));
+}
+
+.bow {
+    position: absolute; top: -35%; left: 50%; transform: translateX(-50%);
+    width: 60%; height: 40%; z-index: 5;
+    filter: drop-shadow(0 1vmin 2vmin rgba(0,0,0,0.5));
+}
+.bow::before, .bow::after {
+    content: ''; position: absolute; width: 50%; height: 100%;
+    border: 1.5vmin solid var(--gold); border-radius: 50% 50% 0 50%;
+    background: radial-gradient(circle at 30% 30%, var(--gold-light), transparent);
+    box-shadow: inset 0 0 1vmin var(--gold-dark);
+}
+.bow::before { left: 0; transform: rotate(-30deg); }
+.bow::after { right: 0; transform: rotate(30deg) scaleX(-1); }
+
+.click-text {
+    margin-top: 5vh; 
+    color: var(--gold);
+    font-size: 4vmin; /* T texto responsivo */
+    text-shadow: 0 0 1vmin var(--gold-dark), 0 0.5vmin 2vmin black;
+    letter-spacing: 0.2vmin;
+    text-align: center;
+    width: 100%;
+}
+
+/* ------------------ VIDEO Y TELÓN RESPONSIVE ------------------ */
+
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-2vmin); } }
+
+.curtain {
+    position: absolute; top: 0; bottom: 0; width: 20%; z-index: 5;
+    background: repeating-linear-gradient(90deg, #05180b 0%, #0f2e18 10%, #05180b 20%);
+    box-shadow: inset 0 0 5vmin rgba(0,0,0,0.8);
+    transition: width 1.5s ease;
+}
+.curtain.left { left: 0; border-right: 0.5vmin solid var(--gold-dark); transform-origin: left; }
+.curtain.right { right: 0; border-left: 0.5vmin solid var(--gold-dark); transform-origin: right; }
+
+.video-wrapper {
+    width: 80%; max-width: 1000px;
+    height: auto; max-height: 80vh; /* Nunca más alto que la pantalla */
+    aspect-ratio: 16/9;
+    background: #000;
+    border: 1vmin solid #444;
+    border-radius: 2vmin; 
+    box-shadow: 0 5vmin 10vmin black;
+    position: relative; z-index: 4;
+    display: flex; justify-content: center; align-items: center;
+}
+video { width: 100%; height: 100%; border-radius: 1vmin; object-fit: contain; }
+
+.btn-restart {
+    margin-top: 5vh; padding: 2vmin 6vmin;
+    font-size: 2.5vmin; font-weight: bold;
+    color: var(--gold-light);
+    background: linear-gradient(to bottom, var(--red-bright), var(--red));
+    border: 0.3vmin solid var(--gold); border-radius: 5vmin;
+    box-shadow: 0 1vmin 2vmin rgba(0,0,0,0.6);
+    cursor: pointer;
+    text-transform: uppercase;
+    z-index: 10;
+}
+
+/* ANIMACIONES */
+@keyframes lidFly {
+    0% { transform: translateY(0) rotate(0); }
+    30% { transform: translateY(-10vmin) rotate(-5deg); }
+    100% { transform: translateY(-50vmin) rotate(45deg) translateX(20vmin); opacity: 0; }
+}
+
+.gift-container.open .lid { animation: lidFly 1.5s forwards cubic-bezier(0.55, 0.055, 0.675, 0.19); }
+.gift-container.open .box, .gift-container.open .bow, .gift-container.open .ribbon-v, .gift-container.open .ribbon-h {
+    transition: opacity 1s ease 0.5s, transform 1s ease 0.5s;
+    opacity: 0; transform: scale(0.8) translateY(5vmin);
+}
+.click-text.fade-out { opacity: 0; transition: opacity 0.5s; }
+
+/* AJUSTES MÓVIL ESPECÍFICOS */
+@media (max-width: 768px) {
+    .gift-container { width: 50vmin; height: 50vmin; }
+    .curtain { width: 10%; } /* Menos cortina en móvil */
+    .click-text { font-size: 6vmin; }
+    .btn-restart { font-size: 4vmin; padding: 3vmin 8vmin; }
+}
+
+/* AJUSTES PARA PANTALLAS APAISADAS EN MÓVIL (Landscape) */
+@media (max-height: 500px) and (orientation: landscape) {
+    .gift-container { width: 40vh; height: 40vh; margin-bottom: 2vh; }
+    .click-text { font-size: 6vh; margin-top: 0; }
+    .scene { flex-direction: row; gap: 20px; } /* Poner texto al lado del regalo */
+    .btn-restart { position: absolute; bottom: 10px; right: 10px; margin: 0; font-size: 3vh; }
+}
